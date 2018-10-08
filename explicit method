@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 #setting up the plotting
 
 #define number of nodes
-N = 21
+N = 41
 dx =1/(N-1)
 #define the time step
-T =1000
+T =8000
 dt = 1/T
 #gamar is no less than 0.5, otherwise the algorithm would not converge.
 r =dt/(np.square(dx))
