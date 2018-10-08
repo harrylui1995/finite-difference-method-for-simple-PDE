@@ -2,7 +2,6 @@
 #coding: utf-8
 #finite difference method solving simple parabolic equations(explicit method)
 import numpy as np
-import pylab as pl
 import matplotlib.pyplot as plt
 #setting up the plotting
 
