@@ -1,0 +1,62 @@
+#!/usr/bin/python
+#coding: utf-8
+#finite difference method solving simple parabolic equations(implicit method)
+import numpy as np
+import matplotlib.pyplot as plt
+
+#define number of nodes
+N = 41
+dx =1/(N-1)
+#define the time step
+T =500
+dt = 1/T
+#gamar is no lese than 0.5, otherwise the algorithm would not converge.
+r =dt/(np.square(dx))
+print (r)
+#boundary condition
+U=np.zeros(N)
+
+U[1]=0
+U[N-1]=0
+x = np.linspace(0,1,int(N))
+for i in range(0,int((N-1)/2)): 
+ U[i]=2*(i/int(N-1))
+ U[i]
+for i in range(int((N-1)/2),int(N-1)):
+ U[i]=2-2*(i/int(N-1))
+print (U)
+plt.plot(x,U, label = "initial condition")  
+#implicit method
+#use thomas algorithm to solve the tridiagonal matrix
+#need to aware of the capacity of thomas algorithm (a>b+c)
+#for this question, it is easy to construct, the diagonal elements are equivalues.
+c=np.zeros(N-1)
+a=1+2*r
+for i in range(0,N-1):
+    c[i]=-r
+
+            
+for iteration in range(0,100):
+     for i in range(0,N-1,1):
+      
+        if i >= 2:
+            c[i]=c[i]/(a-(-r)*c[i-1])
+            U[i]=(U[i]-(-r)*U[i-1])/(a-(-r)*c[i-1])
+            
+        else:
+            U[i]=U[i]/a
+            c[i]=c[i]/a
+     for i in range(N-1,0,-1):
+        
+         if i>N-2:
+          U[i]=U[i]
+         else:
+           U[i]=U[i]-c[i]*U[i+1]
+           c[i]=-r
+     plt.plot(x,U)
+        
+
+plt.plot(x,U, label="last condition")
+plt.title("implicit method")
+plt.legend()     
+plt.show() 
