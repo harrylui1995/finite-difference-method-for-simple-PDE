@@ -10,12 +10,11 @@ dx =1/(N-1)
 #define the time step
 T =500
 dt = 1/T
-#gamar is no lese than 0.5, otherwise the algorithm would not converge.
 r =dt/(np.square(dx))
 print (r)
+
 #boundary condition
 U=np.zeros(N)
-
 U[1]=0
 U[N-1]=0
 x = np.linspace(0,1,int(N))
