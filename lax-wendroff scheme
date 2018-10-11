@@ -1,0 +1,58 @@
+#!/usr/bin/python
+#coding: utf-8
+#first order lax-wendroff for solving hyperbolic equation
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+#define number of nodes
+N = 200
+dx =1/N
+#define the time step
+T =400
+dt = 1/T
+#define the parameter
+#the absolute value of r should be smaller than 1(CFL Condition)
+#initial condition
+x=np.linspace(0,1,int(N))
+U=np.zeros(N)
+
+for i in range(int(0.2/dx),int(0.4/dx)):
+
+ U[i]=1
+
+plt.plot(x,U,c='g',marker='x',label='initial condition')
+ 
+ 
+p=0
+q=0
+#Lax-wendroff scheme
+for iteration in range(0,100):
+
+    
+     for i in range(0,int(N-1),1):
+         a=(1+np.square(p))/(1+2*p*q+2*np.square(p)+p**4)
+      
+         r =a*dt/dx
+         
+         p=p+dx
+         q=q+dt
+         
+         
+         
+         if np.abs(r)>1:
+             
+             print("error(don't match CFL condition)")
+             break
+         else:
+             
+              U[i]=(r/2)*(1+r)*U[i-1]+(1-r**2)*U[i]-(r/2)*(1-r)*U[i+1]            
+     #plt.scatter(x,U)    
+     
+plt.plot(x,U,c='b',marker='v', label="last condition")
+
+plt.title("Lax-wendroff scheme")
+plt.xlabel("x")
+plt.ylabel("U")
+plt.legend()     
+plt.show()
